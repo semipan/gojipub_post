@@ -1,0 +1,16 @@
+.pretty-split-pane-frame {
+	width: 100%;
+	height: 100%;
+}
+
+.pretty-split-pane-frame .split-pane > .split-pane-divider.dragged.touch {
+	background: blue;
+	opacity: 0.25;
+}
+
+.pretty-split-pane-component-inner {
+	width: 100%;
+	height: 100%;
+	padding: 0 1em;
+	overflow: auto;
+}
