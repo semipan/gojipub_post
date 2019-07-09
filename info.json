@@ -1,0 +1,14 @@
+{
+    "id": "post",
+    "name": "文章",
+    "version": "1.0",
+    "thumb": "/static/plugins/post/thumb.jpg",
+    "description": "实现了简单的文章管理。可以对文章进行增删改查操作。文章的编辑依赖于系统的资源上传接口。安装时需要初始化数据表。为了提高查询效率可以开启缓存功能，默认使用Redis作为缓存。",
+    "authors": [
+        {
+            "name": "江边望海",
+            "email": "jiangbianwanghai@163.com",
+            "homepage": "http://www.jiangbianwanghai.com"
+        }
+    ]
+}
