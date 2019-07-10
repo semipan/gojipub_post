@@ -21,6 +21,7 @@ $ret = $sqlLiteDB->exec($sql);
 if (!$ret) {
     throw new \Exception($sqlLiteDB->lastErrorMsg());
 }
+copy(BASE_PATH.'/plugins/post/sample.png', BASE_PATH.'/public/assets/sample.png');
 $tag = 'a:2:{i:0;s:6:"体育";i:1;s:12:"中国女足";}';
 $content = <<<EOF
 &lt;center&gt;![老贾哭了](/assets/sample.png)&lt;/center&gt;
