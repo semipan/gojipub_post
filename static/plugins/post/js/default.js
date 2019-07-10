@@ -11,68 +11,13 @@ var simplemde = new SimpleMDE({
   }
 });
 $(function () {
-  $('.message a').click(function () {
-    $('form').animate({
-      height: 'toggle',
-      opacity: 'toggle'
-    }, 'slow');
-  });
-  $("#url-bt").click(function () {
-    $("#url-block").toggle();
-  })
-  //登录
-  $("#login").click(function () {
-    $.ajax({
-      type: "POST",
-      dataType: "json",
-      url: "/signin",//url
-      data: { username: $("#account").val(), password: $("#password").val() },
-      success: function (result) {
-        if (result.code == 0) {
-          window.location.href = result.url;
-        } else {
-          $("#login_form").removeClass('shake_effect');
-          setTimeout(function () {
-            $("#login_form").addClass('shake_effect')
-          }, 1);
-        }
-      },
-      error: function () {
-        alert("异常！");
-      }
-    });
-    return false;
-  })
-  //注册
-  $("#create").click(function () {
-    $.ajax({
-      type: "POST",
-      dataType: "json",
-      url: "/signup",//url
-      data: { username: $("#r_user_name").val(), password: $("#r_password").val(), email: $("#r_emial").val() },
-      success: function (result) {
-        if (result.code == 0) {
-          window.location.href = result.url;
-        } else {
-          $("#login_form").removeClass('shake_effect');
-          setTimeout(function () {
-            $("#login_form").addClass('shake_effect')
-          }, 1);
-        }
-      },
-      error: function () {
-        alert("异常！");
-      }
-    });
-    return false;
-  })
   //文章保存
   $('#save').on('click', function (event) {
     var text = htmlEncode(simplemde.value());
     $.ajax({
       type: "post",
       dataType: "json",
-      url: "/console/plugins/post?action=save",
+      url: "/console/plugins-app/post?action=save",
       data: { id: $("#id").val(), url: $("#url").val(), title: $("#title").val(), tag: $("#tag").val(), description: $("#description").val(), text: text },
       beforeSend: function (XMLHttpRequest) {
         $('#save').text("保存中...");
@@ -115,7 +60,7 @@ $(function () {
     $.ajax({
       type: "post",
       dataType: "json",
-      url: "/console/plugins/post?action=pub",
+      url: "/console/plugins-app/post?action=pub",
       data: { id: $("#id").val(), url: $("#url").val(), title: $("#title").val(), tag: $("#tag").val(), description: $("#description").val(), text: text },
       beforeSend: function (XMLHttpRequest) {
         $('#submit').text("发布中...");

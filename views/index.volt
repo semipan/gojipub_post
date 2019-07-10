@@ -15,8 +15,8 @@
             <td><input type="checkbox" id="exampleCheck1"> </td>
             <td>{{ v['title'] }}</td>
             <td>{{ date("Y-m-d H:i:s", v['created_at']) }}</td>
-            <td><a href="/console/plugins/post?action=editor&id={{ v['id'] }}">编辑</a> <a
-                    href="/plugins/post?action=delete&file={{ v['id'] }}">删除</a></td>
+            <td><a href="/console/plugins-app/post?action=editor&id={{ v['id'] }}">编辑</a> <a
+                    href="/plugins-app/post?action=delete&file={{ v['id'] }}">删除</a></td>
         </tr>
         {% endfor %}
     </tbody>
