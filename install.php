@@ -1,4 +1,7 @@
 <?php
+/**
+ * 安装脚本，需要初始化一些数据
+ */
 $config = json_decode(file_get_contents(CORE_PATH . "/config/site.json"), true);
 $file = BASE_PATH . '/db/'.$config['db'];
 $sqlLiteDB = new \SQLite3($file);
