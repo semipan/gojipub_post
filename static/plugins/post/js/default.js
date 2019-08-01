@@ -11,6 +11,9 @@ var simplemde = new SimpleMDE({
   }
 });
 $(function () {
+  $("#url-bt").click(function () {
+    $("#url-block").toggle();
+  })
   //文章保存
   $('#save').on('click', function (event) {
     var text = htmlEncode(simplemde.value());
