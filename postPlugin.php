@@ -45,11 +45,10 @@ class postPlugin extends Core\Library\Plugins
     {
         $title = date("Y-m-d H:i:s",time());;
         $posts = new PluPost();
-       //$posts->uid = $this->view->auth['id'];
-        $posts->uid = 2;
+        $posts->uid = $this->plugins->auth['id'];
         $posts->text = ' ';
         $posts->created_at = time();
-        $posts->status = 1;
+        $posts->status = 0;
         $posts->title = $title;
         $posts->draft = '';
         $posts->tag = '';
