@@ -9,14 +9,14 @@
         </tr>
     </thead>
     <tbody>
-        {% set rows = post(['func': 'getPostRows','argv' : { 'page' :currpage, 'limit' : 10, 'order': 'id DESC', 'columns':['id','title','created_at','description','text', 'uid']}]) %}
+        {% set rows = post(['func': 'getPostRows','argv' : { 'conditions': 'status=1','page' :currpage, 'limit' : 10, 'order': 'id DESC', 'columns':['id','title','created_at','description', 'uid']}]) %}
         {% for k,v in rows %}
         <tr>
             <td><input type="checkbox" id="exampleCheck1"> </td>
             <td>{{ v['title'] }}</td>
             <td>{{ date("Y-m-d H:i:s", v['created_at']) }}</td>
             <td><a href="/console/plugins-app/post?action=editor&id={{ v['id'] }}">编辑</a> <a
-                    href="/plugins-app/post?action=delete&file={{ v['id'] }}">删除</a></td>
+                    href="/console/plugins-app/post?action=delete&id={{ v['id'] }}">删除</a></td>
         </tr>
         {% endfor %}
     </tbody>

@@ -28,22 +28,11 @@ class postPlugin extends Core\Library\Plugins
     public function index()
     {
         $this->view->pagetitle = '管理文章';
-        $currpage = $this->request->getQuery("currpage");
-        if (empty($currpage) || $currpage < 1) {
-            $currpage = 1;
-        }
-        $rows = PluPost::find([
-            "offset" => ($currpage - 1) * self::LIMIT,
-            "limit" => self::LIMIT,
-            "order" => "id DESC",
-        ]);
-        $rows = $rows->toArray();
-        $this->view->rows = $rows;
     }
 
     public function create()
     {
-        $title = date("Y-m-d H:i:s",time());;
+        $title = date("Y-m-d H:i:s", time());
         $posts = new PluPost();
         $posts->uid = $this->plugins->auth['id'];
         $posts->text = ' ';
@@ -398,6 +387,27 @@ class postPlugin extends Core\Library\Plugins
      */
     public function delete()
     {
-        echo $this->request->getQuery("file");
+        $id = $this->request->getQuery("id", ['trim', 'string']);
+        if (!empty($id)) {
+            $row = PluPost::findFirst(
+                [
+                    "conditions" => "id = ?1",
+                    "bind" => [
+                        1 => $id,
+                    ],
+                ]
+            );
+            if ($row) {
+                $row->status = 0;
+                $row->save();
+                $json = ['code' => 0, 'msg' => '删除成功'];
+            } else {
+                $json = ['code' => 500010103, 'msg' => '记录不存在'];
+            }
+        } else {
+            $json = ['code' => 500010103, 'msg' => '缺少参数'];
+        }
+        $this->response->setJsonContent($json);
+        $this->response->send();
     }
 }

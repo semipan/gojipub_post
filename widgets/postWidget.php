@@ -22,6 +22,9 @@ class postWidget extends Widget
     public function getPostRows($argv)
     {
         $where = [];
+        if (isset($argv['conditions'])) {
+            $where['conditions'] = $argv['conditions'];
+        }
         if (isset($argv['columns'])) {
             $where['columns'] = $argv['columns'];
         }
@@ -37,9 +40,11 @@ class postWidget extends Widget
         $result = PluPost::find($where);
         $result = $result->toArray();
         if ($result) {
-            foreach ($result as &$val) {
-                $val['text'] = \Michelf\MarkdownExtra::defaultTransform($val['text']);
-                unset($val);
+            if (isset($argv['columns']['text'])) {
+                foreach ($result as &$val) {
+                    $val['text'] = \Michelf\MarkdownExtra::defaultTransform($val['text']);
+                    unset($val);
+                }
             }
             if (isset($argv['columns']) && in_array('uid', $argv['columns'])) {
                 $uidIds = []; //用户id数组
