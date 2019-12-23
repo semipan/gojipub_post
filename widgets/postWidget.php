@@ -38,13 +38,16 @@ class postWidget extends Widget
             $where['order'] = $argv['order'];
         }
         $result = PluPost::find($where);
-        $result = $result->toArray();
         if ($result) {
-            if (isset($argv['columns']['text'])) {
-                foreach ($result as &$val) {
+            $result = $result->toArray();
+            foreach ($result as &$val) {
+                if (in_array('text', $argv['columns']) && !empty($val['text'])) {
                     $val['text'] = \Michelf\MarkdownExtra::defaultTransform($val['text']);
-                    unset($val);
                 }
+                if (in_array('tag', $argv['columns']) && !empty($val['tag'])) {
+                    $val['tag'] = unserialize($val['tag']);
+                }
+                unset($val);
             }
             if (isset($argv['columns']) && in_array('uid', $argv['columns'])) {
                 $uidIds = []; //用户id数组
