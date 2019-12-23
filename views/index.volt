@@ -13,7 +13,7 @@
         {% for k,v in rows %}
         <tr>
             <td width="20"><input type="checkbox" id="exampleCheck1"> </td>
-            <td>{{ v['title'] }}</td>
+            <td><a href="{{ v['url'] }}" title="{{ v['title'] }}">{{ v['title'] }}</a></td>
             <td width="170">{{ date("Y-m-d H:i:s", v['created_at']) }}</td width="20">
             <td width="90" align="right"><a href="/console/plugins-app/post?action=editor&id={{ v['id'] }}">编辑</a> <a
                     href="/console/plugins-app/post?action=delete&id={{ v['id'] }}">删除</a></td>
