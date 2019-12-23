@@ -153,7 +153,12 @@ class postWidget extends Widget
             if ($result) {
                 $result = $result->toArray();
                 foreach ($result as &$val) {
-                    $val['text'] = \Michelf\MarkdownExtra::defaultTransform($val['text']);
+                    if (in_array('text', $argv['columns']) && !empty($val['text'])) {
+                        $val['text'] = \Michelf\MarkdownExtra::defaultTransform($val['text']);
+                    }
+                    if (in_array('tag', $argv['columns']) && !empty($val['tag'])) {
+                        $val['tag'] = unserialize($val['tag']);
+                    }
                     unset($val);
                 }
                 if (isset($argv['columns']) && in_array('uid', $argv['columns'])) {
