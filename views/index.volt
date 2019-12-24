@@ -9,7 +9,7 @@
         </tr>
     </thead>
     <tbody>
-        {% set rows = post(['func': 'getPostRows','argv' : { 'conditions': 'status=1','page' :currpage, 'limit' : 10, 'order': 'id DESC', 'columns':['id','title','created_at','description', 'uid']}]) %}
+        {% set rows = post(['func': 'getPostRows','argv' : { 'conditions': 'status>=0','page' :currpage, 'limit' : 10, 'order': 'id DESC', 'columns':['id','title','created_at','description', 'uid']}]) %}
         {% for k,v in rows %}
         <tr>
             <td width="20"><input type="checkbox" id="exampleCheck1"> </td>
