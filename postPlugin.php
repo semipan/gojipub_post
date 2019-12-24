@@ -32,23 +32,29 @@ class postPlugin extends Core\Library\Plugins
 
     public function create()
     {
-        $title = date("Y-m-d H:i:s", time());
-        $posts = new PluPost();
-        $posts->uid = $this->plugins->auth['id'];
-        $posts->text = ' ';
-        $posts->created_at = time();
-        $posts->status = 0;
-        $posts->title = $title;
-        $posts->draft = '';
-        $posts->tag = '';
-        $posts->description = '';
-        if ($posts->save() === false) {
-            echo 1;die;
-            //$this->logger->error('文章更新失败 ' . __LINE__); //将错误记录日志，便于今后分析。
-            //$json = ['code' => 500010101, 'msg' => 'fail']; //错误码：500代表内部错误，01代码文章模块，01保存操作，01代表保存失败
+        $row = PluPost::findFirst(["conditions" => "status = -1"]);
+        if (empty($row)) {
+            $title = date("Y-m-d H:i:s", time());
+            $posts = new PluPost();
+            $posts->uid = $this->plugins->auth['id'];
+            $posts->text = ' ';
+            $posts->created_at = time();
+            $posts->status = -1;
+            $posts->title = $title;
+            $posts->draft = '';
+            $posts->tag = '';
+            $posts->description = '';
+            if ($posts->save() === false) {
+                echo 1;die;
+                //$this->logger->error('文章更新失败 ' . __LINE__); //将错误记录日志，便于今后分析。
+                //$json = ['code' => 500010101, 'msg' => 'fail']; //错误码：500代表内部错误，01代码文章模块，01保存操作，01代表保存失败
+            } else {
+                $this->view->id = $posts->id;
+                $this->view->title = $title;
+            }
         } else {
-            $this->view->id = $posts->id;
-            $this->view->title = $title;
+            $this->view->id = $row->id;
+            $this->view->title = $row->title;
         }
     }
 
@@ -398,7 +404,7 @@ class postPlugin extends Core\Library\Plugins
                 ]
             );
             if ($row) {
-                $row->status = -1;
+                $row->status = -3;
                 $row->save();
                 $json = ['code' => 0, 'msg' => '删除成功'];
             } else {
