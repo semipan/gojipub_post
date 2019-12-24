@@ -398,7 +398,7 @@ class postPlugin extends Core\Library\Plugins
                 ]
             );
             if ($row) {
-                $row->status = 0;
+                $row->status = -1;
                 $row->save();
                 $json = ['code' => 0, 'msg' => '删除成功'];
             } else {
