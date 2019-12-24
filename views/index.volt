@@ -1,4 +1,5 @@
-{{ partial("partials/main_nav", ['title': '文章']) }}
+{% set toolbar = [{'url':'/console/plugins-app/post?action=create','text':'新建'},{'url':'/console/docs#plugin-post','text':'查看帮助'}] %}
+{{ partial("partials/main_nav", ['title': '文章','toolbar': toolbar]) }}
 <table class="table table-hover">
     <thead>
         <tr>
